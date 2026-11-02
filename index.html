@@ -87,7 +87,38 @@
         
       </div></section>
 
-      <section class="contact-banner" id="contacts"><div class="contact-banner__bg"></div><div class="contact-banner__shade"></div><div class="contact-banner__content"><p class="eyebrow">ВАШ НОВЫЙ ИНТЕРЬЕР НАЧИНАЕТСЯ ЗДЕСЬ</p><h2>Давайте начнём<br />ваш ремонт</h2><p>Расскажите нам о вашем проекте — мы приедем на объект, оценим объём работ и подготовим расчёт.</p><a class="button button--light" href="mailto:info@renova.md?subject=Расчёт%20ремонта">Получить бесплатный расчёт <span aria-hidden="true">↗</span></a></div></section>
+      <section class="contact-section section" id="contacts">
+        <div class="contact-section__backdrop" aria-hidden="true"></div>
+        <div class="shell contact-section__inner">
+          <div class="contact-section__copy">
+            <p class="eyebrow">ВАШ НОВЫЙ ИНТЕРЬЕР НАЧИНАЕТСЯ ЗДЕСЬ</p>
+            <h2>Давайте начнём<br /><em>ваш ремонт</em></h2>
+            <p>Расскажите о проекте — мы свяжемся с вами, обсудим задачу и подготовим расчёт.</p>
+            <a href="mailto:info@renova.md">Или напишите нам: info@renova.md <span aria-hidden="true">↗</span></a>
+          </div>
+          <form class="lead-form" id="lead-form" action="/api/lead" method="post">
+            <div class="lead-form__heading"><span>ОСТАВИТЬ ЗАЯВКУ</span><span>01 — 04</span></div>
+            <label for="lead-name">Ваше имя</label>
+            <input id="lead-name" name="name" autocomplete="name" minlength="2" maxlength="80" required placeholder="Как к вам обращаться?" />
+            <label for="lead-phone">Номер телефона</label>
+            <input id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" minlength="7" maxlength="30" required placeholder="+373 ..." />
+            <label for="lead-service">Что планируете ремонтировать?</label>
+            <select id="lead-service" name="service" required>
+              <option value="" selected disabled>Выберите тип объекта</option>
+              <option>Квартира</option>
+              <option>Частный дом</option>
+              <option>Отдельные работы</option>
+              <option>Пока не уверен(а)</option>
+            </select>
+            <label for="lead-message">Коротко о проекте <span>(необязательно)</span></label>
+            <textarea id="lead-message" name="message" rows="3" maxlength="1000" placeholder="Площадь, сроки или пожелания"></textarea>
+            <div class="lead-form__trap" aria-hidden="true"><label for="lead-website">Оставьте это поле пустым</label><input id="lead-website" name="website" tabindex="-1" autocomplete="off" /></div>
+            <button class="button lead-form__submit" type="submit">Отправить заявку <span aria-hidden="true">↗</span></button>
+            <p class="lead-form__status" id="lead-form-status" role="status" aria-live="polite"></p>
+            <p class="lead-form__privacy">Нажимая кнопку, вы соглашаетесь на связь по указанному номеру.</p>
+          </form>
+        </div>
+      </section>
     </main>
     <footer class="footer"><div class="shell footer__grid"><div class="footer__brand"><a href="#top"><img src="public/assets/figma/desktop-imgIconsLogo1.png" alt="Renova" /></a><p>Ремонт квартир и частных домов<br />в Кишинёве под ключ.</p><span>© 2026 RENOVA</span></div><div><h2>Навигация</h2><a href="#about">О компании</a><a href="#services">Услуги</a><a href="#projects">Проекты</a><a href="#advantages">Преимущества</a><a href="#process">Этапы работы</a></div><div><h2>Контакты</h2><span>Кишинёв, Республика Молдова</span><a href="mailto:info@renova.md">info@renova.md</a><span>+373 XX XXX XXX</span></div><div class="footer__note"><span>RENOVA / 2026</span><p>Создаём пространства,<br />в которых хочется жить.</p><a href="#top">Наверх ↑</a></div></div></footer>
   </body>

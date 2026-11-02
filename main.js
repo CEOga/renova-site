@@ -32,3 +32,36 @@ document.querySelectorAll(".faq details").forEach((item) => {
     if (item.open) document.querySelectorAll(".faq details").forEach((other) => { if (other !== item) other.open = false; });
   });
 });
+
+const leadForm = document.querySelector("#lead-form");
+const leadStatus = document.querySelector("#lead-form-status");
+
+leadForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!leadForm.reportValidity()) return;
+
+  const submitButton = leadForm.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton.innerHTML;
+  submitButton.disabled = true;
+  submitButton.textContent = "Отправляем…";
+  leadStatus.textContent = "";
+  leadStatus.classList.remove("is-error");
+
+  try {
+    const response = await fetch(leadForm.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(leadForm))),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.message || "Не удалось отправить заявку. Попробуйте ещё раз.");
+    leadForm.reset();
+    leadStatus.textContent = "Спасибо! Заявка отправлена. Мы скоро свяжемся с вами.";
+  } catch (error) {
+    leadStatus.textContent = error.message || "Не удалось отправить заявку. Попробуйте ещё раз.";
+    leadStatus.classList.add("is-error");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalButtonText;
+  }
+});
