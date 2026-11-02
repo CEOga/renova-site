@@ -46,17 +46,26 @@ export async function onRequestPost({ request, env }) {
   ].filter(Boolean).join("\n");
 
   let telegramResponse;
+  let telegramResult = null;
   try {
     telegramResponse = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ chat_id: chatId, text }),
     });
+    telegramResult = await telegramResponse.json().catch(() => null);
   } catch {
     return json({ message: "Не удалось отправить заявку. Попробуйте ещё раз или напишите на info@renova.md." }, 502);
   }
 
   if (!telegramResponse.ok) {
+    // Keep diagnostics useful without logging secrets or lead details.
+    console.error("[lead] Telegram send failed", {
+      status: telegramResponse.status,
+      description: typeof telegramResult?.description === "string"
+        ? telegramResult.description.slice(0, 160)
+        : "No error details",
+    });
     return json({ message: "Не удалось отправить заявку. Попробуйте ещё раз или напишите на info@renova.md." }, 502);
   }
 
